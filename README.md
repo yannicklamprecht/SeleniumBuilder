@@ -3,7 +3,9 @@ DSL for Selenium. Provide a possibility to write tests in [Kotlin type-safe buil
 
 ## Sample
 ```kotlin
-driver(ChromeDriver()) { 
+    chromeDriverWithOptions {
+            setHeadless(true)
+    }.use { 
     get("http://cool-website.com")
     
     elementByClass("login") {
@@ -26,7 +28,7 @@ driver(ChromeDriver()) {
             }
         }
     }
-}
+}.quit()
 ```
 
 ## Total function list
