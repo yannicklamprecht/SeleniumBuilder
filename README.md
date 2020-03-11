@@ -37,6 +37,14 @@ DSL for Selenium. Provide a possibility to write tests in [Kotlin type-safe buil
     localStorageValue("_c;;i") {
         println(this)
     }
+    cookieValue("cookieKey") {
+        Assert.assertTrue(isSecure)
+        typedValue<SampleCookieData> {
+            Assert.assertEquals(42, valid)
+            Assert.assertEquals("someHeavyTestString", userName)
+        }
+    }
+
 
 }.quit()
 ```

@@ -29,13 +29,21 @@ class WebDriverTestWithoutSetupTeardownMethods {
                         result = text
                     }
 
-                    localStorageValue<StorageData>("abc"){
-                        Assert.assertEquals(42, this.lastValid)
-                        Assert.assertEquals("someHeavyTestString", this.test)
+                    localStorageValue<StorageData>("abc") {
+                        Assert.assertEquals(42, lastValid)
+                        Assert.assertEquals("someHeavyTestString", test)
                     }
                     println(localStorageValue("_c;;i"))
                     localStorageValue("_c;;i") {
                         println(this)
+                    }
+
+                    cookieValue("cookieKey") {
+                        Assert.assertTrue(isSecure)
+                        typedValue<SampleCookieData> {
+                            Assert.assertEquals(42, valid)
+                            Assert.assertEquals("someHeavyTestString", userName)
+                        }
                     }
 
                     // https://www.google.com
