@@ -1,5 +1,6 @@
 package kz.qwertukg
 
+import org.junit.Assert
 import org.junit.Test
 import kotlin.test.assertTrue
 
@@ -29,7 +30,8 @@ class WebDriverTestWithoutSetupTeardownMethods {
                     }
 
                     localStorageValue<StorageData>("abc"){
-
+                        Assert.assertEquals(42, this.lastValid)
+                        Assert.assertEquals("someHeavyTestString", this.test)
                     }
                     println(localStorageValue("_c;;i"))
                     localStorageValue("_c;;i") {
