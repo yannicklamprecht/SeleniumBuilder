@@ -45,8 +45,7 @@ class WebDriverTestWithoutSetupTeardownMethods {
                             Assert.assertEquals("someHeavyTestString", userName)
                         }
                     }
-
-                    // https://www.google.com
+                    deleteCookie("cookieKey")
                 }
             }
         }.quit()
