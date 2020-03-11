@@ -28,6 +28,14 @@ DSL for Selenium. Provide a possibility to write tests in [Kotlin type-safe buil
             }
         }
     }
+    getLocalStorageValue<StorageData>("abc"){
+    
+    }
+    println(getLocalStorageValue("_c;;i"))
+    getLocalStorageValue("_c;;i") {
+        println(this)
+    }
+
 }.quit()
 ```
 
