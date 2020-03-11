@@ -28,11 +28,11 @@ class WebDriverTestWithoutSetupTeardownMethods {
                         result = text
                     }
 
-                    getLocalStorageValue<StorageData>("abc"){
+                    localStorageValue<StorageData>("abc"){
 
                     }
-                    println(getLocalStorageValue("_c;;i"))
-                    getLocalStorageValue("_c;;i") {
+                    println(localStorageValue("_c;;i"))
+                    localStorageValue("_c;;i") {
                         println(this)
                     }
 
