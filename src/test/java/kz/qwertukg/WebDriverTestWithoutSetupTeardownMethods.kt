@@ -27,6 +27,16 @@ class WebDriverTestWithoutSetupTeardownMethods {
                     elementVisibilityBySelector("a[href = 'https://kotlinlang.org/']") {
                         result = text
                     }
+
+                    getLocalStorageValue<StorageData>("abc"){
+
+                    }
+                    println(getLocalStorageValue("_c;;i"))
+                    getLocalStorageValue("_c;;i") {
+                        println(this)
+                    }
+
+                    // https://www.google.com
                 }
             }
         }.quit()
