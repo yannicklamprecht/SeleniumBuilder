@@ -15,3 +15,7 @@ fun RemoteWebDriver.cookieValue(key: String, init: Cookie.() -> Unit = {}): Cook
     value.init()
     return value
 }
+
+fun RemoteWebDriver.deleteCookie(key: String){
+    this.manage().deleteCookieNamed(key)
+}
