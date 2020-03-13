@@ -19,7 +19,7 @@ fun firefoxDriverWithOptions(init: FirefoxOptions.() -> Unit): RemoteWebDriver {
 }
 
 
-fun RemoteWebDriver.use(init: RemoteWebDriver.() -> Unit): RemoteWebDriver{
-    init()
+fun RemoteWebDriver.use(init: RemoteWebDriver.() -> Unit): RemoteWebDriver {
+    this.init()
     return this
 }

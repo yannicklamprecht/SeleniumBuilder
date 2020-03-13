@@ -12,10 +12,10 @@ class WebDriverTestWithoutSetupTeardownMethods {
         var result = ""
 
         chromeDriverWithOptions {
-            setHeadless(true)
+            //setHeadless(true)
             // setBinary("c:/chromedriver.exe") // no need for mac os when installed with brew etc.
         }.use {
-            get("http://google.com")
+            get("https://google.com")
 
             elementByName("q") {
                 sendKeys("kotlin")
@@ -38,7 +38,14 @@ class WebDriverTestWithoutSetupTeardownMethods {
                         println(this)
                     }
 
-                    cookieValue("cookieKey") {
+                    setCookieValue(
+                            SampleCookieData(
+                                    42,
+                                    "someHeavyTestString"
+                            ).toCookie("cookieKey")
+                    )
+
+                    getCookieValue("cookieKey") {
                         Assert.assertTrue(isSecure)
                         typedValue<SampleCookieData> {
                             Assert.assertEquals(42, valid)
@@ -46,6 +53,7 @@ class WebDriverTestWithoutSetupTeardownMethods {
                         }
                     }
                     deleteCookie("cookieKey")
+
                 }
             }
         }.quit()
