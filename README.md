@@ -3,50 +3,51 @@ DSL for Selenium. Provide a possibility to write tests in [Kotlin type-safe buil
 
 ## Sample
 ```kotlin
-    chromeDriverWithOptions {
-            setHeadless(true)
-    }.use { 
-    get("http://cool-website.com")
-    
-    elementByClass("login") {
-        sendKeys("user@example.com")
-    }
+chromeDriverWithOptions {
+    //setHeadless(true)
+    // setBinary("c:/chromedriver.exe") // no need for mac os when installed with brew etc.
+}.use {
+    get("https://google.com")
 
-    elementByName("password") {
-        sendKeys("123456")
-        submit()
-    }
-    
-    element(By.className("search")) {
+    elementByName("q") {
         sendKeys("kotlin")
-    }
-    
-    wait(10) {
-        elementVisibilityById("result-item") {
-            elementByClass("salary") {
-                item.salary = text
+
+        wait(10) {
+            elementVisibilityByName("btnK") {
+                click()
             }
+
+            elementVisibilityBySelector("a[href = 'https://kotlinlang.org/']") {
+                result = text
+            }
+
+            localStorageValue<StorageData>("abc") {
+                Assert.assertEquals(42, lastValid)
+                Assert.assertEquals("someHeavyTestString", test)
+            }
+
+            setCookieValue(
+                    SampleCookieData(
+                            42,
+                            "someHeavyTestString"
+                    ).toCookie("cookieKey")
+            )
+
+            val cookie = getCookieValue("cookieKey")
+
+            Assert.assertNotNull(cookie)
+            cookie!!.typedValue<SampleCookieData> {
+                Assert.assertEquals(42, valid)
+                Assert.assertEquals("someHeavyTestString", userName)
+            }
+
+            deleteCookie("cookieKey")
+            Assert.assertNull(getCookieValue("cookieKey"))
         }
     }
-    localStorageValue<StorageData>("abc"){
-        Assert.assertEquals(42, this.lastValid)
-        Assert.assertEquals("someHeavyTestString", this.test)
-    }
-    println(localStorageValue("_c;;i"))
-    
-    localStorageValue("_c;;i") {
-        println(this)
-    }
-    cookieValue("cookieKey") {
-        Assert.assertTrue(isSecure)
-        typedValue<SampleCookieData> {
-            Assert.assertEquals(42, valid)
-            Assert.assertEquals("someHeavyTestString", userName)
-        }
-    }
-
-
 }.quit()
+
+assertTrue { result.contains("Kotlin Programming Language") }
 ```
 
 ## Total function list
