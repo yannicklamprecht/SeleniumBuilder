@@ -33,10 +33,6 @@ class WebDriverTestWithoutSetupTeardownMethods {
                         Assert.assertEquals(42, lastValid)
                         Assert.assertEquals("someHeavyTestString", test)
                     }
-                    println(localStorageValue("_c;;i"))
-                    localStorageValue("_c;;i") {
-                        println(this)
-                    }
 
                     setCookieValue(
                             SampleCookieData(
@@ -45,15 +41,16 @@ class WebDriverTestWithoutSetupTeardownMethods {
                             ).toCookie("cookieKey")
                     )
 
-                    getCookieValue("cookieKey") {
-                        Assert.assertTrue(isSecure)
-                        typedValue<SampleCookieData> {
-                            Assert.assertEquals(42, valid)
-                            Assert.assertEquals("someHeavyTestString", userName)
-                        }
-                    }
-                    deleteCookie("cookieKey")
+                    val cookie = getCookieValue("cookieKey")
 
+                    Assert.assertNotNull(cookie)
+                    cookie!!.typedValue<SampleCookieData> {
+                        Assert.assertEquals(42, valid)
+                        Assert.assertEquals("someHeavyTestString", userName)
+                    }
+
+                    deleteCookie("cookieKey")
+                    Assert.assertNull(getCookieValue("cookieKey"))
                 }
             }
         }.quit()
